@@ -4,41 +4,30 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
-<title>City Grid</title>
-<meta name="description" content="Daily geography grid of cities: name a city that fits its row and its column.">
+<title>Cities · Geomingo</title>
+<meta name="description" content="Fill the grid with cities: each square must match its row and its column. A new grid every day, solo or with friends. Daily geography games from Geomingo.">
+<meta name="theme-color" content="#FFF6EE">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Geomingo">
+<meta property="og:title" content="Cities · Geomingo">
+<meta property="og:description" content="Fill the grid with cities. A new grid every day. Better with friends.">
+<meta property="og:url" content="https://hectorei19.github.io/city-grid/">
+<meta property="og:image" content="https://hectorei19.github.io/geo-games/brand/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="../geo-games/brand/icons/favicon.svg?v=202610230100" type="image/svg+xml">
+<link rel="icon" href="../geo-games/brand/icons/favicon-32.png?v=202610230100" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../geo-games/brand/icons/apple-touch-icon.png?v=202610230100">
+<script src="../geo-games/brand/mingo.js?v=202610230100"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Big+Shoulders+Display:wght@700;900&family=Barlow+Semi+Condensed:wght@400;500;600;700&family=JetBrains+Mono:wght@500&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
 <style>
-/* Layout: survey-map sheet — a graticule grid with map-reference labels, setup and results as folded panels over it */
-:root{
-  --paper:#E9EFEE; --sheet:#F7FAF9; --ink:#13243A; --ink-2:#4D5E6E; --rule:#B9C7C8; --sea:#0E7C86; --sea-soft:#D3E7E7;
-  --bad:#B3261E; --good:#1F7A3E;
-  --p0:#D9482B; --p1:#2A62C9; --p2:#C58A00; --p3:#7B3FBF; --p4:#2E8540; --p5:#8B5A2B;
-  --p0-soft:#F6D9D1; --p1-soft:#D6E1F6; --p2-soft:#F3E6C2; --p3-soft:#E5D8F3; --p4-soft:#D5EDDA; --p5-soft:#EEDFD0;
-  --display:"Big Shoulders Display","Arial Narrow",Impact,sans-serif;
-  --ui:"Barlow Semi Condensed","Arial Narrow","Helvetica Neue",Arial,sans-serif;
-  --mono:"JetBrains Mono",ui-monospace,Menlo,Consolas,monospace;
-  --shadow:0 1px 0 rgba(19,36,58,.06),0 8px 24px -12px rgba(19,36,58,.25);
-}
-@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){
-  --paper:#0D1820; --sheet:#14232D; --ink:#E2ECEA; --ink-2:#97A9AF; --rule:#2B3E48; --sea:#4FC1C6; --sea-soft:#183A40;
-  --bad:#FF8A80; --good:#7FD39A;
-  --p0:#FF7A5C; --p1:#79A5FF; --p2:#F2C14E; --p3:#C49BFF; --p4:#6FD08C; --p5:#D2A06E;
-  --p0-soft:#43231C; --p1-soft:#1F2D4A; --p2-soft:#3D321A; --p3-soft:#33264A; --p4-soft:#1D3A26; --p5-soft:#3A2B1E;
-  --shadow:0 1px 0 rgba(0,0,0,.3),0 10px 28px -12px rgba(0,0,0,.7); color-scheme:dark}}
-:root[data-theme="dark"]{
-  --paper:#0D1820; --sheet:#14232D; --ink:#E2ECEA; --ink-2:#97A9AF; --rule:#2B3E48; --sea:#4FC1C6; --sea-soft:#183A40;
-  --bad:#FF8A80; --good:#7FD39A;
-  --p0:#FF7A5C; --p1:#79A5FF; --p2:#F2C14E; --p3:#C49BFF; --p4:#6FD08C; --p5:#D2A06E;
-  --p0-soft:#43231C; --p1-soft:#1F2D4A; --p2-soft:#3D321A; --p3-soft:#33264A; --p4-soft:#1D3A26; --p5-soft:#3A2B1E;
-  --shadow:0 1px 0 rgba(0,0,0,.3),0 10px 28px -12px rgba(0,0,0,.7); color-scheme:dark}
+/* Layout: Geomingo (../geo-games/brand/geomingo.css, loaded after this block) gives the colours, fonts and common pieces;
+   this block keeps the grid's own layout */
 *{box-sizing:border-box}
 html,body{min-height:100%}
-body{background:var(--paper);color:var(--ink);font-family:var(--ui);font-size:16px;line-height:1.4;
-  background-image:linear-gradient(var(--rule) 1px,transparent 1px),linear-gradient(90deg,var(--rule) 1px,transparent 1px);
-  background-size:48px 48px;background-position:-1px -1px;background-attachment:fixed}
-body::before{content:"";position:fixed;inset:0;background:var(--paper);opacity:.82;pointer-events:none;z-index:-1}
 .wrap{max-width:560px;margin:0 auto;padding-inline:16px;padding-block:14px 40px;display:flex;flex-direction:column;gap:14px}
 button,input{font:inherit;color:inherit}
 button{cursor:pointer}
@@ -299,8 +288,12 @@ button.hcard:hover,button.hcard:active{border-color:var(--sea);background:var(--
 .b5 .cell.flag{padding:3.5px}
 .c0{--pc:var(--p0);--pc-soft:color-mix(in srgb,var(--p0) 22%,transparent)}.c1{--pc:var(--p1);--pc-soft:color-mix(in srgb,var(--p1) 22%,transparent)}.c2{--pc:var(--p2);--pc-soft:color-mix(in srgb,var(--p2) 22%,transparent)}.c3{--pc:var(--p3);--pc-soft:color-mix(in srgb,var(--p3) 22%,transparent)}
 .mini{width:20px;height:20px;border-radius:3px;object-fit:cover;flex:none;vertical-align:-5px;box-shadow:0 0 0 1px var(--rule)}
+/* Mingo's bubble over the grid, and the result panel */
+.gm-hello+.board-wrap{margin-top:-4px}
+.respanel .gm-hello{margin:-4px 0 -6px}
+.corner .mingo{width:auto;height:88%}
 </style>
-
+<link rel="stylesheet" href="../geo-games/brand/geomingo.css?v=202610230100">
 </head>
 <body>
 <div class="wrap" id="app"></div>
@@ -377,11 +370,11 @@ add('name','Name ends in A',c=>c.k.endsWith('a'));
 add('name','Same first letter as its country',c=>c.k[0]===N(c.co.n)[0]);
 CATS.forEach(k=>{k.set=C.map(c=>!!k.test(c));k.count=k.set.filter(Boolean).length;});
 const NAMEWORD='Uses the English name shown in this game (for example "Munich", "Kyiv", "Delhi"). Spaces, hyphens and accents are ignored.';
-const COUNTRYNOTE='It is about the country the city is in (from the Country Grid country data).';
+const COUNTRYNOTE='It is about the country the city is in (from the country data of Countries).';
 function describe(k){
   const L=k.label;let m;
   if(m=/^In (Africa|Europe|Asia|Oceania|North or Central America|South America)$/.exec(L)){const extra={'Europe':' Russia west of the Urals counts as Europe, and Istanbul counts for both Europe and Asia.','Asia':' Cities in Russia east of the Urals (Yekaterinburg, Novosibirsk, Vladivostok...), Türkiye, Georgia, Armenia and Azerbaijan count as Asia. Istanbul counts for both.','North or Central America':' Includes the Caribbean, Central America, Mexico and Greenland. Honolulu counts here, as part of the United States.','Oceania':' Australia, New Zealand and the Pacific islands.','Africa':'','South America':''};
-    return 'The city is in '+m[1]+'. It goes by the country, as in Country Grid.'+(extra[m[1]]||'')}
+    return 'The city is in '+m[1]+'. It goes by the country, as in Countries.'+(extra[m[1]]||'')}
   if(m=/^In (.+)$/.exec(L)&&CO_BIG.some(x=>'In '+coName(x)===L))return 'The city is in '+m[1]+'.';
   const D={
     'National capital':'The capital of an independent country. Countries with more than one official capital count them all: Bolivia (Sucre and La Paz) and South Africa (Pretoria, Cape Town and Bloemfontein). Sri Lanka\'s capital counts as Colombo, Eswatini\'s as Mbabane, India\'s as Delhi (New Delhi is part of it). Former capitals, like Rio de Janeiro or Istanbul, and capitals of territories, like Hong Kong or San Juan, do not count.',
@@ -425,7 +418,7 @@ function describe(k){
     'Name contains Z':'The city name contains the letter Z anywhere. '+NAMEWORD,
     'Name ends in A':'The city name ends in the letter A, like Vienna or Lima. '+NAMEWORD
   };
-  D['Same first letter as its country']='The city name starts with the same letter as the name of its country, like Mexico City (Mexico) or Seoul (South Korea). Country names as in Country Grid ("United States", "United Kingdom", "Türkiye"...). '+NAMEWORD;
+  D['Same first letter as its country']='The city name starts with the same letter as the name of its country, like Mexico City (Mexico) or Seoul (South Korea). Country names as in Countries ("United States", "United Kingdom", "Türkiye"...). '+NAMEWORD;
   if(D[L])return D[L];
   if(m=/^Name starts with (.)$/.exec(L))return 'The city name starts with the letter '+m[1]+'. '+NAMEWORD;
   if(m=/^Official language: (.+)$/.exec(L))return m[1]+' is an official language of the city\'s country. Widely spoken but unofficial languages do not count. '+COUNTRYNOTE;
@@ -550,6 +543,11 @@ function saveUser(v){
   render();
 }
 let ui = {sel:-1,query:'',reveal:-1,toast:null,fresh:-1};
+// Geomingo: the game's name, and what Mingo says about your last move ({g: the game it belongs to, pose, t, s})
+const GAME_NAME='Cities';
+let mood=null;
+const gameKey=()=>S?(S.gid||(S.daily?'d'+S.daily+(S.archive?'a':''):S.mode+S.code)):'';
+function say(pose,t,sub){mood={g:gameKey(),pose,t,s:sub}}
 let offset=0;const now=()=>Date.now()+offset;
 let tick=null;
 
@@ -817,8 +815,8 @@ function onTick(){
   if(sub)sub.textContent=Math.max(0,Math.ceil(left/1000))+'s';
   if(S.mode==='online'){if(left<=-400)tryTimeout(S.turn,S.deadline);return}
   if(left<=0){
-    if(S.mode==='solo'){spendGuess();toast("Time's up. That cost a guess.",'bad')}
-    else toast("Time's up for "+S.players[S.turn].name+'.','bad');
+    if(S.mode==='solo'){spendGuess();say('sad',"Time's up!",'That cost a guess.')}
+    else say('sad',"Time's up!",'Too slow, '+S.players[S.turn].name+'. Turn passes.');
     ui.sel=-1;ui.query='';nextTurn(false);
   }
 }
@@ -875,7 +873,7 @@ function endGame(){
 function guess(ci,cid){
   const c=byCode[cid];if(!c||S.over)return;
   if(S.mode==='online'){ui.sel=-1;ui.query='';drawLayer();onlineGuess(ci,cid);return}
-  if(S.used.includes(cid)){toast(c.n+' is already on the board.','bad');return}
+  if(S.used.includes(cid)){say('think','Good one, but it\'s taken!',c.n+' is already on the grid. Try another city.');ui.sel=-1;ui.query='';render();return}
   const ok=S.answers[ci].includes(c.i);
   const p=S.players[S.turn];
   if(ok){
@@ -883,10 +881,12 @@ function guess(ci,cid){
     const before=lineCounts()[S.turn];
     S.cells[ci]={o:S.turn,c:cid,p:pts,sb};S.used.push(cid);S.passes=0;ui.fresh=ci;
     const nl=lineCounts()[S.turn]-before;
-    toast(c.n+' fits. +'+pts+(sb?' +'+sb+' speed':'')+(nl?' +'+nl*LINE_BONUS+' line':'')+(S.mode==='solo'?'':' for '+p.name)+'.','good');
+    const left=S.mode==='solo'?S.guesses-1:0;
+    say('happy',['Yes! ','Great pick! ','Spot on! '][S.used.length%3]+c.n+' it is.','+'+pts+' pts'+(sb?' · +'+sb+' speed':'')+(nl?' · +'+nl*LINE_BONUS+' for the line':'')+(S.mode==='solo'?(left>0?' · '+left+' guess'+(left===1?'':'es')+' left':''):' for '+p.name+'.'));
   }else{
     S.wrong++;
-    toast(c.n+" doesn't fit there."+(S.mode==='solo'?'':' Turn passes.'),'bad');
+    const left=S.mode==='solo'?S.guesses-1:0;
+    say('sad','Not quite.',c.n+" doesn't fit there."+(S.mode==='solo'?(left>0?' '+left+' guess'+(left===1?'':'es')+' left.':''):' Turn passes.'));
   }
   spendGuess();
   ui.sel=-1;ui.query='';
@@ -959,7 +959,7 @@ function syncHist(){if(!USER||!db)return;const ref=db.ref('users/'+USER.uid+'/da
 const randRoom=()=>[...Array(4)].map(()=>LET[Math.floor(Math.random()*24)]).join('');
 const evId=()=>Math.random().toString(36).slice(2,9);
 function gridFor(n,seed,diff){const k=n+':'+seed+':'+(diff||'normal');if(!ansCache[k])ansCache[k]=generate(n,seed,diff);return ansCache[k]}
-const APP_VERSION='202610192200';
+const APP_VERSION='202610230100';
 // The room stores the exact rows and columns, so every phone shows the host's grid.
 function roomGrid(r){
   if(r.rows&&r.cols){const k='ids:'+r.rows.join(',')+'|'+r.cols.join(',');
@@ -1065,7 +1065,8 @@ function syncRoom(){
      me:order.indexOf(ME),host:r.host===ME};
   if(S.over){computeScores();clearInterval(tick)}
   if(r.ev&&r.ev.id!==seenEv){
-    if(!firstSync){toast(r.ev.text,r.ev.kind);if(r.ev.ci!=null&&r.ev.kind==='good')ui.fresh=r.ev.ci}
+    if(!firstSync){toast(r.ev.text,r.ev.kind);if(r.ev.ci!=null&&r.ev.kind==='good')ui.fresh=r.ev.ci;
+      if(r.ev.kind==='good'||r.ev.kind==='bad')say(r.ev.kind==='good'?'happy':'sad',r.ev.kind==='good'?'Nice one!':'Not quite.',r.ev.text)}
     seenEv=r.ev.id;
   }
   firstSync=false;
@@ -1166,7 +1167,8 @@ const colRef=j=>'ABCDE'[j], rowRef=i=>String(i+1);
 
 function render(){
   const body=screen==='stats'?statsView():screen==='archive'?archiveView():S?gameView():((editingUser||(USER&&NEEDNAME))?nameView():(roomCode&&room?lobbyView():(askingPlayers?playersView():setupView())));
-  app.innerHTML=`<header class="top"><h1 class="brand" id="brand" role="link" tabindex="0" title="Home">City<span>Grid</span></h1><span class="coord">${S?(S.daily?'Daily #'+S.day:esc(S.code))+(S.mode==='online'?' · room '+roomCode:''):(roomCode?'room '+roomCode:(setup.user&&!editingUser?'':'grid · cities · geography'))}</span>${body.includes('id="menu"')?'':menuBtn()}</header>`+(newVersion?`<div class="status" style="border-color:var(--sea)"><span class="who" style="white-space:normal">A new version of the game is available.</span><button class="primary" id="reload" style="padding:8px 12px;font-size:.9rem">Reload</button></div>`:'')+body;
+  watchResult();
+  app.innerHTML=Geomingo.header({game:GAME_NAME,coord:S?(S.daily?'Daily #'+S.day:S.code)+(S.mode==='online'?' · room '+roomCode:''):(roomCode?'Room '+roomCode:''),menu:menuBtn()})+(newVersion?`<div class="status" style="border-color:var(--sea)"><span class="who" style="white-space:normal">A new version of the game is available.</span><button class="primary" id="reload" style="padding:8px 12px;font-size:.9rem">Reload</button></div>`:'')+body;
   bind();drawLayer();fitHeaders();saveDaily();recordGame();
   if(S&&!S.over&&S.timer)onTickVisual();
 }
@@ -1253,7 +1255,7 @@ function statsView(){
 function nameView(){
   if(USER&&NEEDNAME){const first=((USER.displayName||'').trim().split(/\s+/)[0]||'').slice(0,16);
     return `<section class="panel namecard"><p class="big">Choose your name</p>
-      <label class="label" for="pickname">Your name in City Grid</label>
+      <label class="label" for="pickname">Your name in Geomingo</label>
       <input id="pickname" maxlength="16" autocomplete="nickname" placeholder="Your name" value="${esc(setup.user||first)}">
       <p class="hint">It appears in the daily ranking and on your results. Choose carefully: it stays with your account and can't be changed later.</p>
       <button class="primary" id="savepick">Save name</button></section>`}
@@ -1282,9 +1284,9 @@ function confirmPlayers(){
 // home: three ways to play. 'solo' and 'friends' are the settings screens behind two of them
 let screen='home';
 const screenFor=s=>!s?'home':s.archive?'archive':s.daily?'home':s.mode==='solo'?'solo':'friends';
-// top-left corner of a board: the daily grid shows its number (GRID #3), other games the Borderline logo
+// top-left corner of a board: the daily grid shows its number (GRID #3), other games Mingo
 const cornerHTML=day=>day?`<div class="corner dnum" aria-label="Grid number ${day}"><span class="dl">Grid</span><span class="dn${day>=100?' long':''}">#${day}</span></div>`
-  :`<div class="corner"><span class="cbrand">City<span>Grid</span></span></div>`;
+  :`<div class="corner" aria-hidden="true">${Geomingo.mingo('hello',30)}</div>`;
 // today's grid shown open on the home screen: tapping a square starts (or continues) the daily game there
 function dailyBoard(saved){
   const dg=saved?null:dailyGrid();if(!saved&&!dg)return '';
@@ -1317,9 +1319,15 @@ function homeView(){
   const daily=done?doneCard('done',d.S.n,d.S.cells.map(c=>c.o>=0),p.score,p.cells,'Tap to see your grid, the ranking and share it.')
     :other?doneCard(other.f===0?'started on another device':'played on another device',other.n||DAILY_N,[...(other.g||'').padEnd((other.n||DAILY_N)**2,'0')].map(x=>x==='1'),other.s||0,other.c||0,other.f===0?'You started it on another device with this account. One try per account.':'You played it on another device with this account.')
     :`<div class="hcard ac"><span class="hm">#${dayNumber(key)} · ${date}</span><span class="ht">Today's grid</span><span class="hs">${d?'You started it: tap a square to continue.':'Compete with everyone: the same grid, one try. Tap a square to start.'}</span>${dailyBoard(d&&d.S)}</div>`;
+  const st=Geomingo.streak();
+  const hi=done?Geomingo.hello('happy',st>1?'Nice one! '+st+' days in a row.':'Nice one!',`Today's grid: ${p.score} points. Next grid in ${next}.`)
+    :other?Geomingo.hello('think','Played on another device.',`Next grid in ${next}.`)
+    :d?Geomingo.hello('think','Your grid is waiting.','Tap a square to carry on. One try.')
+    :Geomingo.hello('hello','Ready for today\'s grid?','Tap a square to start. One try, the same grid for everyone.');
   return `<section class="home">
+    ${hi}
     <div class="userline"><span class="pin" style="background:var(--sea)"></span>Playing as ${esc(setup.user)}${USER||AUTH_OK?'':'<button class="ghost" id="chname">Change</button>'}
-      ${AUTH_OK&&!USER&&noBanner()?`<span class="uright"><button class="ghost" id="signin">Sign in</button>`:'<span class="uright">'}${menuBtn()}</span></div>
+      ${AUTH_OK&&!USER&&noBanner()?`<span class="uright"><button class="ghost" id="signin">Sign in</button></span>`:''}</div>
     ${AUTH_OK&&!USER&&!noBanner()?`<div class="gbanner"><span>Sign in to join the daily ranking</span><button class="primary" id="bsignin">Sign in</button><button class="linkbtn" id="bclose" aria-label="Close">✕</button></div>`:''}
     ${daily}
     ${TEST?`<div class="testbar"><span>Test mode${TESTDAY?' · day '+TESTDAY:''}</span><button class="ghost" id="dreset">Test: reset today's grid</button>
@@ -1366,6 +1374,11 @@ function gameView(){
   }
   if(S.mode!=='solo')h+=`<div class="scores">${S.players.map((p,i)=>`<span class="chip ${!S.over&&i===S.turn?'on':''} ${p.on===false?'off':''}"><span class="pin" style="${pinStyle(i)}"></span>${esc(p.name)} <b>${S.over?p.score:liveScore(i)}</b></span>`).join('')}</div>`;
   if(S.over)h+=resultsView();
+  else{const m=mood&&mood.g===gameKey()?mood:null,p=S.players[S.turn];
+    h+=m?Geomingo.hello(m.pose,m.t,m.s)
+      :S.mode==='online'?Geomingo.hello('hello',S.turn===S.me?'Your turn!':'Waiting for '+p.name+'…','Name a city that fits its row and its column.')
+      :S.mode==='versus'?Geomingo.hello('hello',p.name+', your turn!','Name a city that fits its row and its column.')
+      :Geomingo.hello('hello','Name a city for each square.','It must match its row and its column. '+S.guesses+' guesses.')}
   h+=`<div class="board-wrap"><div class="board b${n}" lang="en" style="grid-template-columns:repeat(${n+1},minmax(0,1fr))">`;
   h+=cornerHTML(S.daily?S.day:0);
   S.cols.forEach((k,j)=>h+=`<div class="hd col" data-info="${k}" role="button" tabindex="0" aria-label="${esc(CATS[k].label)}: explain"><span class="ref">${colRef(j)}</span><span class="ht">${titleWithInfo(CATS[k].short)}</span></div>`);
@@ -1390,7 +1403,7 @@ function gameView(){
 function shareText(){
   const n=S.n;let g='';
   for(let i=0;i<n;i++){for(let j=0;j<n;j++){const o=S.cells[i*n+j].o;g+=o<0?'⬜':(S.mode==='solo'?'🟩':['🟥','🟦','🟨','🟪','🟩','🟫'][o])}g+='\n'}
-  const head=S.daily?`City Grid Daily #${S.day} — ${S.players[0].score} pts (${S.players[0].cells}/${n*n})`:S.mode==='solo'?`City Grid ${S.code} —${S.players[0].score} pts (${S.players[0].cells}/${n*n})`:`City Grid ${S.code} — `+S.players.map(p=>p.name+' '+p.score).join(', ');
+  const head=S.daily?`${Geomingo.share(GAME_NAME)} #${S.day} — ${S.players[0].score} pts (${S.players[0].cells}/${n*n})`:S.mode==='solo'?`${Geomingo.share(GAME_NAME)} ${S.code} — ${S.players[0].score} pts (${S.players[0].cells}/${n*n})`:`${Geomingo.share(GAME_NAME)} ${S.code} — `+S.players.map(p=>p.name+' '+p.score).join(', ');
   return head+'\n'+g.trim();
 }
 // link that opens this exact grid (?grid=4E-KQPMT), sent together with the result
@@ -1418,14 +1431,40 @@ function shareView(){const enc=encodeURIComponent;
     <button class="ghost" id="sharecopy">Copy result and link</button></div>
     <button class="linkbtn" id="shareclose">Close</button></div>`}
 function breakdown(p){return `<p class="hint bdline">${p.cells} squares ${p.base} · speed ${p.speed} · lines ${p.lines}×${LINE_BONUS} = ${p.bonus}</p>`}
+// Mingo's verdict on a finished game: {pose, t, s}
+function verdict(){const n=S.n;
+  if(S.mode==='solo'){const p=S.players[0],f=p.cells/(n*n),st=S.daily&&!S.archive?Geomingo.streak():0;
+    const sub=p.cells+' of '+n*n+' squares · '+p.score+' points';
+    return f>=1?{pose:'happy',t:'Full grid! Mingo is impressed.',s:sub}
+      :f>=.6?{pose:'happy',t:'Nice one!'+(st>1?' '+st+' days in a row.':''),s:sub}
+      :f>=.3?{pose:'think',t:'Not bad at all.',s:sub}:{pose:'sad',t:'Tough grid, this one.',s:sub}}
+  const top=Math.max(...S.players.map(p=>p.score)),win=S.players.filter(p=>p.score===top);
+  if(S.mode==='online'&&S.me>=0){const me=S.players[S.me];
+    return me.score===top?{pose:'happy',t:win.length>1?'A draw! Well played.':'You win! Mingo is impressed.',s:me.score+' points · '+me.cells+' squares'}
+      :{pose:'think',t:'So close! Rematch?',s:me.score+' points · '+me.cells+' squares'}}
+  return {pose:'happy',t:win.length>1?'A draw at '+top+' points!':win[0].name+' wins!',s:'Well played, everyone.'}}
+const verdictHTML=()=>{const v=verdict();return Geomingo.hello(v.pose,v.t,v.s,{key:'res'})};
+// the next daily game of Geomingo not played yet
+const nextGameHTML=()=>{const g=Geomingo.nextGame('citygrid');
+  return g?`<a class="primary nextgame" href="${g.href}">Next game: ${esc(g.name)} →</a>`:`<p class="hint">You have played all of today's games. New ones at midnight, Spain time.</p>`};
+// when a game you were playing ends: the result window, with Mingo, your score, Share and the next game
+let liveKey='';
+function watchResult(){if(!S){liveKey='';return}const k=gameKey();
+  if(!S.over){liveKey=k;return}
+  if(liveKey!==k)return;liveKey='';
+  const v=verdict(),me=S.mode==='online'&&S.me>=0?S.players[S.me]:S.players[0],n=S.n;
+  setTimeout(()=>Geomingo.resultWindow({pose:v.pose,title:v.t,num:me.score.toLocaleString('en'),unit:'points · '+me.cells+' of '+n*n+' squares',
+    mini:Geomingo.mini(S.cells.map(c=>S.mode==='online'?c.o===S.me:c.o>=0),n),
+    sub:S.daily&&!S.archive?"Share it: friends play today's grid with their own one try.":'',
+    share:shareResult,next:S.daily&&!S.archive?Geomingo.nextGame('citygrid'):null,allDone:S.daily&&!S.archive,close:'See the grid'}),500)}
 function resultsView(){
   if(S.daily){const p=S.players[0],n=S.n,ms=msToNextDay();
-    return `<section class="panel"><span class="label">${S.dayof?'':S.archive?'Archive · ':''}Daily grid #${S.day}${S.dayof?' · played on its day':''}</span><p class="big">${p.score} points</p>${breakdown(p)}<p class="hint">${p.cells} of ${n*n} squares. ${S.wrong} wrong guess${S.wrong===1?'':'es'}. ${S.dayof?'You played this grid on its day, so it can\'t be played again.':S.archive?'Archive games don\'t count for the ranking or your streak.':`Share it: friends play today's grid with their own one try. Next grid in ${Math.floor(ms/36e5)} h ${Math.floor(ms%36e5/6e4)} min.`}</p><pre class="sharebox" id="share">${esc(shareText())}</pre><div class="row-btns"><button class="ghost" id="copy">Share</button><button class="primary" id="newg" style="flex:1">${S.archive?'Back to archive':'Back to menu'}</button></div></section>${lbView(S.archive?S.daily:null)}`}
+    return `<section class="panel respanel">${verdictHTML()}<span class="label">${S.dayof?'':S.archive?'Archive · ':''}Daily grid #${S.day}${S.dayof?' · played on its day':''}</span><p class="big">${p.score} points</p>${breakdown(p)}<p class="hint">${p.cells} of ${n*n} squares. ${S.wrong} wrong guess${S.wrong===1?'':'es'}. ${S.dayof?'You played this grid on its day, so it can\'t be played again.':S.archive?'Archive games don\'t count for the ranking or your streak.':`Share it: friends play today's grid with their own one try. Next grid in ${Math.floor(ms/36e5)} h ${Math.floor(ms%36e5/6e4)} min.`}</p><pre class="sharebox" id="share">${esc(shareText())}</pre><div class="row-btns"><button class="ghost" id="copy">Share</button><button class="primary" id="newg" style="flex:1">${S.archive?'Back to archive':'Back to menu'}</button></div>${S.archive?'':nextGameHTML()}</section>${lbView(S.archive?S.daily:null)}`}
   if(S.mode==='solo'){const p=S.players[0];const n=S.n;
-    return `<section class="panel"><p class="big">${p.score} points</p>${breakdown(p)}<p class="hint">${p.cells} of ${n*n} squares. ${S.wrong} wrong guess${S.wrong===1?'':'es'}. Share sends your result with a link: friends who open it play this same grid.</p><pre class="sharebox" id="share">${esc(shareText())}</pre><div class="row-btns"><button class="ghost" id="copy">Share</button><button class="primary" id="again" style="flex:1">New grid</button></div><button class="ghost" id="newg">Change settings</button></section>`}
+    return `<section class="panel respanel">${verdictHTML()}<p class="big">${p.score} points</p>${breakdown(p)}<p class="hint">${p.cells} of ${n*n} squares. ${S.wrong} wrong guess${S.wrong===1?'':'es'}. Share sends your result with a link: friends who open it play this same grid.</p><pre class="sharebox" id="share">${esc(shareText())}</pre><div class="row-btns"><button class="ghost" id="copy">Share</button><button class="primary" id="again" style="flex:1">New grid</button></div><button class="ghost" id="newg">Change settings</button></section>`}
   const ranked=S.players.map((p,i)=>({...p,i})).sort((a,b)=>b.score-a.score||b.cells-a.cells);
   const top=ranked[0].score,winners=ranked.filter(p=>p.score===top);
-  return `<section class="panel"><p class="big">${winners.length>1?'Draw at '+top+' points':esc(winners[0].name)+' wins'}</p>
+  return `<section class="panel respanel">${verdictHTML()}<p class="big">${winners.length>1?'Draw at '+top+' points':esc(winners[0].name)+' wins'}</p>
    <div class="podium">${ranked.map((p,r)=>`<div class="place ${p.score===top?'win':''}" ${p.uid?`data-stats="${esc(p.uid)}" role="button" tabindex="0"`:''}><span class="rk">${r+1}</span><span class="pin" style="${pinStyle(p.i)}"></span><span class="nm">${esc(p.name)}</span><span class="pt">${p.score}</span></div><div class="bd">${breakdown(p)}</div>`).join('')}</div>
    <pre class="sharebox" id="share">${esc(shareText())}</pre>
    <div class="row-btns"><button class="ghost" id="copy">Share</button>${S.mode==='online'&&!S.host?'':'<button class="primary" id="again" style="flex:1">Rematch, new grid</button>'}</div>
@@ -1462,7 +1501,7 @@ function drawLayer(){
   let h='';
   // header menu: How to play, Archive, My stats, Credits, sign in/out
   if(ui.menu){const it=(k,label,cls)=>`<button class="mitem${cls?' '+cls:''}" data-menu="${k}">${ico(k)}${label}</button>`;
-    h+=`<div class="menuscrim" id="menuscrim"></div><nav class="menubox" aria-label="Menu" style="top:${Math.round(((m=>m?m.getBoundingClientRect().bottom:54)(document.getElementById('menu')))+4)}px">${it('help','How to play')}${it('archive','Archive')}${it('stats','My stats')}${it('credits','Credits &amp; data sources')}${it('games','More games')}${AUTH_OK?(USER?it('signout','Sign out','out'):it('signin','Sign in with Google','out')):''}</nav>`}
+    h+=`<div class="menuscrim" id="menuscrim"></div><nav class="menubox" aria-label="Menu" style="top:${Math.round(((m=>m?m.getBoundingClientRect().bottom:54)(document.getElementById('menu')))+4)}px">${it('help','How to play')}${it('archive','Archive')}${it('stats','My stats')}${it('credits','Credits &amp; data sources')}${it('games','All Geomingo games')}${AUTH_OK?(USER?it('signout','Sign out','out'):it('signin','Sign in with Google','out')):''}</nav>`}
   if(S&&!S.over&&ui.sel>=0){
     const n=S.n,i=Math.floor(ui.sel/n),j=ui.sel%n;
     const res=matches(ui.query);
@@ -1483,12 +1522,12 @@ function drawLayer(){
   if(ui.credits){
     h+=`<div class="infoscrim" id="credscrim"></div><div class="infobox helpbox credits" role="dialog" aria-modal="true" aria-labelledby="credt">
       <h2 id="credt">Credits</h2>
-      <p>City Grid is a free, independent geography game, a sister of <a href="https://hectorei19.github.io/country-grid/">Country Grid</a> with cities instead of countries. It is not affiliated with any other grid or geography game.</p>
+      <p>Cities is part of Geomingo, free and independent daily geography games: the sister of <a href="https://hectorei19.github.io/country-grid/">Countries</a>, with cities instead of countries. It is not affiliated with any other grid or geography game.</p>
       <dl>
         <dt>Cities</dt>
         <dd><a href="https://www.geonames.org" target="_blank" rel="noopener">GeoNames</a> (via the <i>all-the-cities</i> package): names, coordinates and population of each city, under the <a href="https://creativecommons.org/licenses/by/4.0/" target="_blank" rel="noopener">Creative Commons Attribution 4.0</a> licence. Adapted: English names, a few outdated populations corrected (Buenos Aires, Taipei, Venice, Kuwait City, Luxembourg, Thimphu, Bridgetown, Bandar Seri Begawan, Astana).</dd>
         <dt>Countries</dt>
-        <dd>The country of each city, its continent, languages, currency and memberships come from Country Grid's data: <a href="https://github.com/mledoze/countries" target="_blank" rel="noopener">mledoze/countries</a> (<a href="https://opendatacommons.org/licenses/odbl/1-0/" target="_blank" rel="noopener">ODbL 1.0</a>, adapted) and lists compiled by hand, correct as of October 2026. Full details in <a href="https://hectorei19.github.io/country-grid/" target="_blank" rel="noopener">Country Grid</a>'s Credits.</dd>
+        <dd>The country of each city, its continent, languages, currency and memberships come from Countries' data: <a href="https://github.com/mledoze/countries" target="_blank" rel="noopener">mledoze/countries</a> (<a href="https://opendatacommons.org/licenses/odbl/1-0/" target="_blank" rel="noopener">ODbL 1.0</a>, adapted) and lists compiled by hand, correct as of October 2026. Full details in <a href="https://hectorei19.github.io/country-grid/" target="_blank" rel="noopener">Country Grid</a>'s Credits.</dd>
         <dt>Capitals, coasts, seas, rivers and height</dt>
         <dd>Compiled by hand from Wikipedia (text under <a href="https://creativecommons.org/licenses/by-sa/4.0/" target="_blank" rel="noopener">CC BY-SA 4.0</a>) and checked against the <a href="https://www.naturalearthdata.com" target="_blank" rel="noopener">Natural Earth</a> coastline (public domain), October 2026. Each category's <span class="ib">i</span> explains the exact rule and the doubtful cases.</dd>
         <dt>Megacities</dt>
@@ -1498,7 +1537,7 @@ function drawLayer(){
         <dt>Flags</dt>
         <dd><a href="https://github.com/lipis/flag-icons" target="_blank" rel="noopener">flag-icons</a> by Panayiotis Lipiridis, under the <a href="https://github.com/lipis/flag-icons/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>.</dd>
         <dt>Fonts</dt>
-        <dd>Big Shoulders Display, Barlow Semi Condensed and JetBrains Mono, from <a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a>, under the SIL Open Font License.</dd>
+        <dd>Fredoka and Nunito, from <a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a>, under the SIL Open Font License.</dd>
         <dt>Accuracy</dt>
         <dd>City limits, populations and capitals can change and can be disputed. The game follows the data above; if an answer looks wrong, tap the category's <span class="ib">i</span> to see the exact rule used.</dd>
       </dl>
@@ -1551,7 +1590,7 @@ function drawLayer(){
   if(ms){ms.onclick=()=>{ui.menu=false;drawLayer()};
     layer.querySelectorAll('[data-menu]').forEach(b=>b.onclick=()=>{const k=b.dataset.menu;ui.menu=false;
       if(k==='help'){ui.help=true;drawLayer()}else if(k==='credits'){ui.credits=true;drawLayer()}
-      else if(k==='stats')openStats(USER?USER.uid:null);else if(k==='games')location.href='https://hectorei19.github.io/geo-games/';else if(k==='archive')openArchive();
+      else if(k==='stats')openStats(USER?USER.uid:null);else if(k==='games')location.href=Geomingo.HOME;else if(k==='archive')openArchive();
       else if(k==='signin'){drawLayer();signIn()}else if(k==='signout'){drawLayer();signOut()}})}
   const hk=document.getElementById('helpok');
   if(hk){const close=()=>{ui.help=false;drawLayer()};hk.onclick=close;document.getElementById('helpscrim').onclick=close}
@@ -1644,6 +1683,7 @@ function start(data){
   editingUser=!setup.user;
   if(editingUser||(S&&S.mode==='online'))S=null;
   if(S&&!S.over)startTurn();
+  try{if(new URLSearchParams(location.search).has('friends')&&!S){screen='friends';history.replaceState(null,'',location.pathname)}}catch(e){}
   try{const q=new URLSearchParams(location.search).get('room');if(q&&/^[A-Za-z]{4}$/.test(q)){setup.mode='online';setup.join=q.toUpperCase();screen='friends'}}catch(e){}
   // a shared result link (?grid=4E-KQPMT) opens the setup screen ready to play that same grid
   try{const g=new URLSearchParams(location.search).get('grid');if(g&&parseCode(g)){setup.code=g.trim().toUpperCase();if(setup.mode==='online')setup.mode='solo';screen='solo';if(S&&S.mode!=='online')S=null}}catch(e){}

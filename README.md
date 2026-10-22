@@ -1,5 +1,7 @@
 # City Grid
 
+Part of [Geomingo](https://hectorei19.github.io/geo-games/), daily geography games: the colours, fonts, Mingo and the shared header come from `../geo-games/brand/` (Geomingo's repository), so publish that first. Fonts: Fredoka and Nunito.
+
 Geography grid game with cities: name a city that matches each row and column (505 to choose from: every national capital, the big cities of each continent and other famous ones). A sister of [Country Grid](https://hectorei19.github.io/country-grid/), same game and same look, with cities instead of countries. Every grid is checked so it can always be completed, whatever answers are given.
 
 Live at https://hectorei19.github.io/city-grid/ · all the games: https://hectorei19.github.io/geo-games/
