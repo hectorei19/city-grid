@@ -6,7 +6,7 @@
 <style>body{margin:0}img{max-width:100%}[hidden]{display:none!important}:root{padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}</style>
 <title>Cities · Geomingo</title>
 <meta name="description" content="Fill the grid with cities: each square must match its row and its column. A new grid every day, solo or with friends. Daily geography games from Geomingo.">
-<meta name="theme-color" content="#FFF6EE">
+<meta name="theme-color" content="#F6F8F5">
 <meta property="og:type" content="website">
 <meta property="og:site_name" content="Geomingo">
 <meta property="og:title" content="Cities · Geomingo">
@@ -16,13 +16,13 @@
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta name="twitter:card" content="summary_large_image">
-<link rel="icon" href="../geo-games/brand/icons/favicon.svg?v=202610230100" type="image/svg+xml">
-<link rel="icon" href="../geo-games/brand/icons/favicon-32.png?v=202610230100" sizes="32x32" type="image/png">
-<link rel="apple-touch-icon" href="../geo-games/brand/icons/apple-touch-icon.png?v=202610230100">
-<script src="../geo-games/brand/mingo.js?v=202610230100"></script>
+<link rel="icon" href="../geo-games/brand/icons/favicon.svg?v=202610240100" type="image/svg+xml">
+<link rel="icon" href="../geo-games/brand/icons/favicon-32.png?v=202610240100" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="../geo-games/brand/icons/apple-touch-icon.png?v=202610240100">
+<script src="../geo-games/brand/mingo.js?v=202610240100"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600;700&family=Nunito:wght@400;600;700;800&display=swap">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo:wdth,wght@62..125,400;62..125,600;62..125,800;62..125,900&family=Public+Sans:wght@400;500;600;700&family=Courier+Prime:wght@400;700&display=swap">
 <style>
 /* Layout: Geomingo (../geo-games/brand/geomingo.css, loaded after this block) gives the colours, fonts and common pieces;
    this block keeps the grid's own layout */
@@ -293,7 +293,7 @@ button.hcard:hover,button.hcard:active{border-color:var(--sea);background:var(--
 .respanel .gm-hello{margin:-4px 0 -6px}
 .corner .mingo{width:auto;height:88%}
 </style>
-<link rel="stylesheet" href="../geo-games/brand/geomingo.css?v=202610230100">
+<link rel="stylesheet" href="../geo-games/brand/geomingo.css?v=202610240100">
 </head>
 <body>
 <div class="wrap" id="app"></div>
@@ -815,8 +815,8 @@ function onTick(){
   if(sub)sub.textContent=Math.max(0,Math.ceil(left/1000))+'s';
   if(S.mode==='online'){if(left<=-400)tryTimeout(S.turn,S.deadline);return}
   if(left<=0){
-    if(S.mode==='solo'){spendGuess();say('sad',"Time's up!",'That cost a guess.')}
-    else say('sad',"Time's up!",'Too slow, '+S.players[S.turn].name+'. Turn passes.');
+    if(S.mode==='solo'){spendGuess();say('sad',"Time's up.",'That cost a guess.')}
+    else say('sad',"Time's up.",'Too slow, '+S.players[S.turn].name+'. Turn passes.');
     ui.sel=-1;ui.query='';nextTurn(false);
   }
 }
@@ -873,7 +873,7 @@ function endGame(){
 function guess(ci,cid){
   const c=byCode[cid];if(!c||S.over)return;
   if(S.mode==='online'){ui.sel=-1;ui.query='';drawLayer();onlineGuess(ci,cid);return}
-  if(S.used.includes(cid)){say('think','Good one, but it\'s taken!',c.n+' is already on the grid. Try another city.');ui.sel=-1;ui.query='';render();return}
+  if(S.used.includes(cid)){say('think','Hold on.',c.n+' is already stamped on this grid. Try another city.');ui.sel=-1;ui.query='';render();return}
   const ok=S.answers[ci].includes(c.i);
   const p=S.players[S.turn];
   if(ok){
@@ -882,11 +882,12 @@ function guess(ci,cid){
     S.cells[ci]={o:S.turn,c:cid,p:pts,sb};S.used.push(cid);S.passes=0;ui.fresh=ci;
     const nl=lineCounts()[S.turn]-before;
     const left=S.mode==='solo'?S.guesses-1:0;
-    say('happy',['Yes! ','Great pick! ','Spot on! '][S.used.length%3]+c.n+' it is.','+'+pts+' pts'+(sb?' · +'+sb+' speed':'')+(nl?' · +'+nl*LINE_BONUS+' for the line':'')+(S.mode==='solo'?(left>0?' · '+left+' guess'+(left===1?'':'es')+' left':''):' for '+p.name+'.'));
+    if(S.mode!=='versus')Geomingo.stamp('citygrid',c.n);
+    say('happy','Stamped: '+c.n+'.','+'+pts+' pts'+(sb?' · +'+sb+' speed':'')+(nl?' · +'+nl*LINE_BONUS+' for the line':'')+(S.mode==='solo'?(left>0?' · '+left+' guess'+(left===1?'':'es')+' left':''):' for '+p.name+'.'));
   }else{
     S.wrong++;
     const left=S.mode==='solo'?S.guesses-1:0;
-    say('sad','Not quite.',c.n+" doesn't fit there."+(S.mode==='solo'?(left>0?' '+left+' guess'+(left===1?'':'es')+' left.':''):' Turn passes.'));
+    say('sad','Denied entry.',c.n+" doesn't fit that square."+(S.mode==='solo'?(left>0?' '+left+' guess'+(left===1?'':'es')+' left.':''):' Turn passes.'));
   }
   spendGuess();
   ui.sel=-1;ui.query='';
@@ -959,7 +960,7 @@ function syncHist(){if(!USER||!db)return;const ref=db.ref('users/'+USER.uid+'/da
 const randRoom=()=>[...Array(4)].map(()=>LET[Math.floor(Math.random()*24)]).join('');
 const evId=()=>Math.random().toString(36).slice(2,9);
 function gridFor(n,seed,diff){const k=n+':'+seed+':'+(diff||'normal');if(!ansCache[k])ansCache[k]=generate(n,seed,diff);return ansCache[k]}
-const APP_VERSION='202610230100';
+const APP_VERSION='202610240100';
 // The room stores the exact rows and columns, so every phone shows the host's grid.
 function roomGrid(r){
   if(r.rows&&r.cols){const k='ids:'+r.rows.join(',')+'|'+r.cols.join(',');
@@ -1066,7 +1067,7 @@ function syncRoom(){
   if(S.over){computeScores();clearInterval(tick)}
   if(r.ev&&r.ev.id!==seenEv){
     if(!firstSync){toast(r.ev.text,r.ev.kind);if(r.ev.ci!=null&&r.ev.kind==='good')ui.fresh=r.ev.ci;
-      if(r.ev.kind==='good'||r.ev.kind==='bad')say(r.ev.kind==='good'?'happy':'sad',r.ev.kind==='good'?'Nice one!':'Not quite.',r.ev.text)}
+      if(r.ev.kind==='good'||r.ev.kind==='bad')say(r.ev.kind==='good'?'happy':'sad',r.ev.kind==='good'?'Stamped.':'Denied entry.',r.ev.text)}
     seenEv=r.ev.id;
   }
   firstSync=false;
@@ -1206,7 +1207,7 @@ function fitHeaders(){
     while(cb.scrollWidth>box.clientWidth-parseFloat(getComputedStyle(box).paddingLeft)*2&&h>8&&k++<40){h-=.5;cb.style.fontSize=h+'px'}}
   // country names on guessed squares: shrink a name until no word is cut and it stays below the corner badges
   document.querySelectorAll('.flagbox .nm').forEach(nm=>{nm.style.fontSize='';
-    const box=nm.parentElement,badge=box.querySelector('.pts'),room=box.clientHeight-(badge?badge.offsetHeight:0);
+    const box=nm.parentElement,room=box.clientHeight*.5;
     let s=parseFloat(getComputedStyle(nm).fontSize),k=0;
     while((nm.scrollWidth>nm.clientWidth+0.5||nm.offsetHeight>room)&&s>6&&k++<30){s-=.5;nm.style.fontSize=s+'px'}});
 }
@@ -1286,7 +1287,7 @@ let screen='home';
 const screenFor=s=>!s?'home':s.archive?'archive':s.daily?'home':s.mode==='solo'?'solo':'friends';
 // top-left corner of a board: the daily grid shows its number (GRID #3), other games Mingo
 const cornerHTML=day=>day?`<div class="corner dnum" aria-label="Grid number ${day}"><span class="dl">Grid</span><span class="dn${day>=100?' long':''}">#${day}</span></div>`
-  :`<div class="corner" aria-hidden="true">${Geomingo.mingo('hello',30)}</div>`;
+  :`<div class="corner" aria-hidden="true">${Geomingo.mingo('head',30)}</div>`;
 // today's grid shown open on the home screen: tapping a square starts (or continues) the daily game there
 function dailyBoard(saved){
   const dg=saved?null:dailyGrid();if(!saved&&!dg)return '';
@@ -1320,10 +1321,10 @@ function homeView(){
     :other?doneCard(other.f===0?'started on another device':'played on another device',other.n||DAILY_N,[...(other.g||'').padEnd((other.n||DAILY_N)**2,'0')].map(x=>x==='1'),other.s||0,other.c||0,other.f===0?'You started it on another device with this account. One try per account.':'You played it on another device with this account.')
     :`<div class="hcard ac"><span class="hm">#${dayNumber(key)} · ${date}</span><span class="ht">Today's grid</span><span class="hs">${d?'You started it: tap a square to continue.':'Compete with everyone: the same grid, one try. Tap a square to start.'}</span>${dailyBoard(d&&d.S)}</div>`;
   const st=Geomingo.streak();
-  const hi=done?Geomingo.hello('happy',st>1?'Nice one! '+st+' days in a row.':'Nice one!',`Today's grid: ${p.score} points. Next grid in ${next}.`)
+  const hi=done?Geomingo.hello('happy','Stamped for today.'+(st>1?' '+st+'-day streak.':''),`Today's grid: ${p.score} points. Next grid in ${next}.`)
     :other?Geomingo.hello('think','Played on another device.',`Next grid in ${next}.`)
     :d?Geomingo.hello('think','Your grid is waiting.','Tap a square to carry on. One try.')
-    :Geomingo.hello('hello','Ready for today\'s grid?','Tap a square to start. One try, the same grid for everyone.');
+    :Geomingo.hello('pass','GeoPass ready.','Tap a square to start. Every right answer is a stamp. One try, the same grid for everyone.');
   return `<section class="home">
     ${hi}
     <div class="userline"><span class="pin" style="background:var(--sea)"></span>Playing as ${esc(setup.user)}${USER||AUTH_OK?'':'<button class="ghost" id="chname">Change</button>'}
@@ -1376,9 +1377,9 @@ function gameView(){
   if(S.over)h+=resultsView();
   else{const m=mood&&mood.g===gameKey()?mood:null,p=S.players[S.turn];
     h+=m?Geomingo.hello(m.pose,m.t,m.s)
-      :S.mode==='online'?Geomingo.hello('hello',S.turn===S.me?'Your turn!':'Waiting for '+p.name+'…','Name a city that fits its row and its column.')
-      :S.mode==='versus'?Geomingo.hello('hello',p.name+', your turn!','Name a city that fits its row and its column.')
-      :Geomingo.hello('hello','Name a city for each square.','It must match its row and its column. '+S.guesses+' guesses.')}
+      :S.mode==='online'?Geomingo.hello('pass',S.turn===S.me?'Your turn.':'Waiting for '+p.name+'…','Name a city that fits its row and its column.')
+      :S.mode==='versus'?Geomingo.hello('pass',p.name+', your turn.','Name a city that fits its row and its column.')
+      :Geomingo.hello('pass',S.n*S.n+' stamps to win.','Each city must match its row and its column. '+S.guesses+' guesses.')}
   h+=`<div class="board-wrap"><div class="board b${n}" lang="en" style="grid-template-columns:repeat(${n+1},minmax(0,1fr))">`;
   h+=cornerHTML(S.daily?S.day:0);
   S.cols.forEach((k,j)=>h+=`<div class="hd col" data-info="${k}" role="button" tabindex="0" aria-label="${esc(CATS[k].label)}: explain"><span class="ref">${colRef(j)}</span><span class="ht">${titleWithInfo(CATS[k].short)}</span></div>`);
@@ -1435,14 +1436,14 @@ function breakdown(p){return `<p class="hint bdline">${p.cells} squares ${p.base
 function verdict(){const n=S.n;
   if(S.mode==='solo'){const p=S.players[0],f=p.cells/(n*n),st=S.daily&&!S.archive?Geomingo.streak():0;
     const sub=p.cells+' of '+n*n+' squares · '+p.score+' points';
-    return f>=1?{pose:'happy',t:'Full grid! Mingo is impressed.',s:sub}
-      :f>=.6?{pose:'happy',t:'Nice one!'+(st>1?' '+st+' days in a row.':''),s:sub}
-      :f>=.3?{pose:'think',t:'Not bad at all.',s:sub}:{pose:'sad',t:'Tough grid, this one.',s:sub}}
+    return f>=1?{pose:'happy',t:'Full page. Every square stamped.',s:sub}
+      :f>=.6?{pose:'happy',t:'Landed.'+(st>1?' '+st+'-day streak.':''),s:sub}
+      :f>=.3?{pose:'think',t:'A few gaps in the pages.',s:sub}:{pose:'sad',t:'Rough crossing, this one.',s:sub}}
   const top=Math.max(...S.players.map(p=>p.score)),win=S.players.filter(p=>p.score===top);
   if(S.mode==='online'&&S.me>=0){const me=S.players[S.me];
-    return me.score===top?{pose:'happy',t:win.length>1?'A draw! Well played.':'You win! Mingo is impressed.',s:me.score+' points · '+me.cells+' squares'}
-      :{pose:'think',t:'So close! Rematch?',s:me.score+' points · '+me.cells+' squares'}}
-  return {pose:'happy',t:win.length>1?'A draw at '+top+' points!':win[0].name+' wins!',s:'Well played, everyone.'}}
+    return me.score===top?{pose:'happy',t:win.length>1?'A draw. Well played.':'You win. First through the gate.',s:me.score+' points · '+me.cells+' squares'}
+      :{pose:'think',t:'So close. Rematch?',s:me.score+' points · '+me.cells+' squares'}}
+  return {pose:'happy',t:win.length>1?'A draw at '+top+' points.':win[0].name+' wins.',s:'Well played, everyone.'}}
 const verdictHTML=()=>{const v=verdict();return Geomingo.hello(v.pose,v.t,v.s,{key:'res'})};
 // the next daily game of Geomingo not played yet
 const nextGameHTML=()=>{const g=Geomingo.nextGame('citygrid');
@@ -1453,7 +1454,7 @@ function watchResult(){if(!S){liveKey='';return}const k=gameKey();
   if(!S.over){liveKey=k;return}
   if(liveKey!==k)return;liveKey='';
   const v=verdict(),me=S.mode==='online'&&S.me>=0?S.players[S.me]:S.players[0],n=S.n;
-  setTimeout(()=>Geomingo.resultWindow({pose:v.pose,title:v.t,num:me.score.toLocaleString('en'),unit:'points · '+me.cells+' of '+n*n+' squares',
+  setTimeout(()=>Geomingo.resultWindow({game:'citygrid',pose:v.pose,title:v.t,num:me.score.toLocaleString('en'),unit:'Points',
     mini:Geomingo.mini(S.cells.map(c=>S.mode==='online'?c.o===S.me:c.o>=0),n),
     sub:S.daily&&!S.archive?"Share it: friends play today's grid with their own one try.":'',
     share:shareResult,next:S.daily&&!S.archive?Geomingo.nextGame('citygrid'):null,allDone:S.daily&&!S.archive,close:'See the grid'}),500)}
@@ -1537,7 +1538,7 @@ function drawLayer(){
         <dt>Flags</dt>
         <dd><a href="https://github.com/lipis/flag-icons" target="_blank" rel="noopener">flag-icons</a> by Panayiotis Lipiridis, under the <a href="https://github.com/lipis/flag-icons/blob/main/LICENSE" target="_blank" rel="noopener">MIT License</a>.</dd>
         <dt>Fonts</dt>
-        <dd>Fredoka and Nunito, from <a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a>, under the SIL Open Font License.</dd>
+        <dd>Archivo, Public Sans and Courier Prime, from <a href="https://fonts.google.com" target="_blank" rel="noopener">Google Fonts</a>, under the SIL Open Font License.</dd>
         <dt>Accuracy</dt>
         <dd>City limits, populations and capitals can change and can be disputed. The game follows the data above; if an answer looks wrong, tap the category's <span class="ib">i</span> to see the exact rule used.</dd>
       </dl>
